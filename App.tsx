@@ -136,16 +136,21 @@ const App: React.FC = () => {
             <motion.img
               src={LOGO_URL}
               alt=""
+              role="presentation"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1, duration: 0.8 }}
               className="mx-auto mb-3 sm:mb-4 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 opacity-[0.08] mix-blend-soft-light pointer-events-none block"
               style={{ filter: 'brightness(1.2) saturate(1.0)' }}
-              onError={() => setLogoError(true)}
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                setLogoError(true);
+              }}
               onLoad={(e) => {
                 // Verberg het element als het niet correct laadt
                 const img = e.currentTarget;
                 if (!img.complete || img.naturalHeight === 0) {
+                  img.style.display = 'none';
                   setLogoError(true);
                 }
               }}

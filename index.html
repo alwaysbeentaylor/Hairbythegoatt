@@ -127,9 +127,15 @@
       img:not([src]) {
         display: none !important;
       }
-      /* Prevent broken image placeholder from showing - but allow images to load */
-      img {
-        /* Remove the aggressive hiding that was blocking all images */
+      /* Hide broken image placeholders using a more specific approach */
+      img[alt=""] {
+        /* For images with empty alt that fail to load, hide the broken icon */
+        font-size: 0;
+        line-height: 0;
+      }
+      /* Additional fix: hide broken image icons that appear inline */
+      img:not([src*="."]):not([src*="http"]):not([src*="data:"]) {
+        display: none !important;
       }
     </style>
   <script type="importmap">
