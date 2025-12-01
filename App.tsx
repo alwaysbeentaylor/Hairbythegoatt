@@ -44,6 +44,8 @@ const App: React.FC = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [selectedPriceImageIndex, setSelectedPriceImageIndex] = useState<number | null>(null);
   const [logoError, setLogoError] = useState(false);
+  const [navLogoError, setNavLogoError] = useState(false);
+  const [footerLogoError, setFooterLogoError] = useState(false);
   
   const { scrollY } = useScroll();
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
@@ -66,13 +68,16 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 md:h-24 flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Goat Logo - Realistic with gold border */}
-            <div className="relative">
-              <img 
-                src={LOGO_URL} 
-                alt="Goat Logo" 
-                className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 object-cover rounded-full border border-gold-500/50 shadow-lg" 
-              />
-            </div>
+            {!navLogoError && (
+              <div className="relative">
+                <img 
+                  src={LOGO_URL} 
+                  alt="Goat Logo" 
+                  className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 object-cover rounded-full border border-gold-500/50 shadow-lg" 
+                  onError={() => setNavLogoError(true)}
+                />
+              </div>
+            )}
             <div className="font-serif text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tighter text-cocoa-900">
               HAIR BY THE <span className="text-gold-600">GOAT</span>.
             </div>
@@ -134,7 +139,7 @@ const App: React.FC = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1, duration: 0.8 }}
-              className="mx-auto mb-3 sm:mb-4 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 opacity-[0.08] mix-blend-soft-light pointer-events-none"
+              className="mx-auto mb-3 sm:mb-4 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 opacity-[0.08] mix-blend-soft-light pointer-events-none block"
               style={{ filter: 'brightness(1.2) saturate(1.0)' }}
               onError={() => setLogoError(true)}
             />
@@ -537,7 +542,14 @@ const App: React.FC = () => {
           <div className="sm:col-span-2">
             <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                  {/* Realistic Goat Head Logo in Footer */}
-                 <img src={LOGO_URL} alt="Logo" className="h-8 w-8 sm:h-10 sm:w-10 object-cover rounded-full border border-gold-500/30" />
+                 {!footerLogoError && (
+                   <img 
+                     src={LOGO_URL} 
+                     alt="Logo" 
+                     className="h-8 w-8 sm:h-10 sm:w-10 object-cover rounded-full border border-gold-500/30" 
+                     onError={() => setFooterLogoError(true)}
+                   />
+                 )}
                 <div className="font-serif text-lg sm:text-xl md:text-2xl text-cocoa-900">HAIR BY THE <span className="text-gold-600">GOAT</span>.</div>
             </div>
             

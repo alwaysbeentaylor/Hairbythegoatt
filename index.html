@@ -122,6 +122,14 @@
         max-width: 100%;
         height: auto;
       }
+      /* Hide broken image icons */
+      img[src=""], img:not([src]) {
+        display: none !important;
+      }
+      img::before {
+        content: "";
+        display: none;
+      }
     </style>
   <script type="importmap">
 {
