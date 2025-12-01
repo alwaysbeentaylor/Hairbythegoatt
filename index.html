@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="theme-color" content="#1A1412" />
+    <meta name="theme-color" content="#F5EDE4" />
     <title>Hair by the GOAT | Luxe Braids & Weaves</title>
     <meta name="description" content="Gespecialiseerd in Stitch Braids, Cornrows & Precision Black Hair Styling." />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,6 +21,19 @@
               sans: ['"Lato"', 'sans-serif'],
             },
             colors: {
+              // Beige/light brown color palette from pricelist
+              beige: {
+                50: '#FDF8F5',
+                100: '#F5EDE4',
+                200: '#E8DCC8',
+                300: '#D9C5A8',
+                400: '#C9AB85',
+                500: '#B8946A', // Main beige
+                600: '#9D7A55',
+                700: '#7D6144',
+                800: '#5D4833',
+                900: '#3E3022',
+              },
               // Dark, rich aesthetics based on the iPhone screenshot
               cocoa: {
                 100: '#E8DQD5',
@@ -125,7 +138,7 @@
 }
 </script>
 </head>
-  <body class="bg-cocoa-900 text-stone-200 antialiased">
+  <body class="bg-beige-100 text-cocoa-900 antialiased">
     <div id="root"></div>
     <script type="module" src="./index.tsx"></script>
   </body>
