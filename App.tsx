@@ -43,6 +43,7 @@ const App: React.FC = () => {
   const [activePriceCategory, setActivePriceCategory] = useState<number | null>(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [selectedPriceImageIndex, setSelectedPriceImageIndex] = useState<number | null>(null);
+  const [logoError, setLogoError] = useState(false);
   
   const { scrollY } = useScroll();
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
@@ -126,15 +127,18 @@ const App: React.FC = () => {
 
         <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto py-12 sm:py-16">
           {/* Logo boven EST with love 2025 - subtiel geïntegreerd */}
-          <motion.img
-            src={LOGO_URL}
-            alt="Goat Logo"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1, duration: 0.8 }}
-            className="mx-auto mb-3 sm:mb-4 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 opacity-[0.08] mix-blend-soft-light pointer-events-none"
-            style={{ filter: 'brightness(1.2) saturate(1.0)' }}
-          />
+          {!logoError && (
+            <motion.img
+              src={LOGO_URL}
+              alt="Goat Logo"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1, duration: 0.8 }}
+              className="mx-auto mb-3 sm:mb-4 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 opacity-[0.08] mix-blend-soft-light pointer-events-none"
+              style={{ filter: 'brightness(1.2) saturate(1.0)' }}
+              onError={() => setLogoError(true)}
+            />
+          )}
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
