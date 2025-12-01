@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, ArrowRight, Star, MapPin, Clock, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { BRAND_NAME, PRICES, PORTFOLIO, SOCIAL_LINKS, TAGLINE, POLICY_RULES, LOGO_URL } from './constants';
@@ -46,6 +46,7 @@ const App: React.FC = () => {
   const [logoError, setLogoError] = useState(false);
   const [navLogoError, setNavLogoError] = useState(false);
   const [footerLogoError, setFooterLogoError] = useState(false);
+  const [heroBgError, setHeroBgError] = useState(false);
   
   const { scrollY } = useScroll();
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
@@ -122,11 +123,18 @@ const App: React.FC = () => {
           className="absolute inset-0 z-0"
         >
           {/* Using a darker, more texture-focused image for the background */}
-          <img 
-            src="https://images.unsplash.com/photo-1624637651395-586b97b0a82e?q=80&w=2000&auto=format&fit=crop" 
-            alt="Dark Skin Braids Texture" 
-            className="w-full h-full object-cover object-center opacity-60"
-          />
+          {!heroBgError && (
+            <img 
+              src="https://images.unsplash.com/photo-1624637651395-586b97b0a82e?q=80&w=2000&auto=format&fit=crop" 
+              alt="" 
+              role="presentation"
+              className="w-full h-full object-cover object-center opacity-60"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                setHeroBgError(true);
+              }}
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-beige-200/40 via-beige-100/20 to-beige-100"></div>
         </motion.div>
 
@@ -238,15 +246,16 @@ const App: React.FC = () => {
           
           {/* Carousel Container */}
           <div className="relative">
-            <div className="overflow-x-auto scrollbar-hide pb-4 -mx-4 sm:-mx-6 px-4 sm:px-6 snap-x snap-mandatory">
-              <div className="flex gap-3 sm:gap-4 justify-start sm:justify-center">
-                {PORTFOLIO.map((item, index) => (
+            <div className="overflow-hidden pb-4 -mx-4 sm:-mx-6 px-4 sm:px-6">
+              <div className="flex gap-3 sm:gap-4 animate-scroll">
+                {/* Duplicate items for seamless infinite scroll */}
+                {[...PORTFOLIO, ...PORTFOLIO, ...PORTFOLIO].map((item, index) => (
                   <motion.div 
-                    key={item.id}
+                    key={`${item.id}-${index}`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex-shrink-0 group relative cursor-pointer touch-manipulation snap-center"
-                    onClick={() => setSelectedImageIndex(index)}
+                    className="flex-shrink-0 group relative cursor-pointer touch-manipulation"
+                    onClick={() => setSelectedImageIndex(index % PORTFOLIO.length)}
                   >
                     <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 overflow-hidden rounded-sm bg-beige-200 border border-gold-500/30">
                       <img 
@@ -333,10 +342,6 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              {/* Image Counter */}
-              <div className="absolute -bottom-10 sm:-bottom-12 left-1/2 -translate-x-1/2 text-beige-200 text-xs sm:text-sm">
-                {selectedImageIndex + 1} / {PORTFOLIO.length}
-              </div>
             </motion.div>
           </motion.div>
         )}
