@@ -122,13 +122,32 @@
         max-width: 100%;
         height: auto;
       }
-      /* Hide broken image icons */
-      img[src=""], img:not([src]) {
+      /* Hide broken image icons completely - multiple approaches */
+      img[src=""], 
+      img:not([src]),
+      img[src*="undefined"],
+      img[src*="null"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+      }
+      /* Prevent broken image icon from showing */
+      img::before,
+      img::after {
+        content: "" !important;
         display: none !important;
       }
-      img::before {
-        content: "";
-        display: none;
+      /* Additional fix for broken images - hide any icon that appears */
+      img {
+        font-size: 0;
+        line-height: 0;
+        text-indent: -9999px;
+      }
+      /* Hide any placeholder icons */
+      img[alt]:empty {
+        display: none !important;
       }
     </style>
   <script type="importmap">
