@@ -137,6 +137,40 @@
       img:not([src*="."]):not([src*="http"]):not([src*="data:"]) {
         display: none !important;
       }
+      /* Hide broken image icons that appear in text or inline elements */
+      span img, h1 img, h2 img, p img, div img {
+        font-size: 0 !important;
+        line-height: 0 !important;
+      }
+      /* Hide any broken image icons that might appear after text */
+      img[alt=""]:not([src*="."]):not([src*="http"]):not([src*="data:"]) {
+        display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
+      }
+      /* Infinite scroll animation for portfolio carousel */
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(calc(-100% / 3));
+        }
+      }
+      .animate-scroll {
+        animation: scroll 40s linear infinite;
+        width: fit-content;
+        display: flex;
+      }
+      .animate-scroll:hover {
+        animation-play-state: paused;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .animate-scroll {
+          animation: none;
+        }
+      }
     </style>
   <script type="importmap">
 {
