@@ -122,32 +122,14 @@
         max-width: 100%;
         height: auto;
       }
-      /* Hide broken image icons completely - multiple approaches */
+      /* Hide broken image icons - only for truly broken images */
       img[src=""], 
-      img:not([src]),
-      img[src*="undefined"],
-      img[src*="null"] {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        width: 0 !important;
-        height: 0 !important;
-      }
-      /* Prevent broken image icon from showing */
-      img::before,
-      img::after {
-        content: "" !important;
+      img:not([src]) {
         display: none !important;
       }
-      /* Additional fix for broken images - hide any icon that appears */
+      /* Prevent broken image placeholder from showing - but allow images to load */
       img {
-        font-size: 0;
-        line-height: 0;
-        text-indent: -9999px;
-      }
-      /* Hide any placeholder icons */
-      img[alt]:empty {
-        display: none !important;
+        /* Remove the aggressive hiding that was blocking all images */
       }
     </style>
   <script type="importmap">
